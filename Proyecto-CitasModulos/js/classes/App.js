@@ -1,6 +1,6 @@
 
 import { datosCita, nuevaCita } from '../funciones.js';
-import { mascotaInput, propietarioInput, telefonoInput, fechaInput, horaInput, sintomasInput, formulario } from '../selectores.js';
+import { mascotaInput,tipoInput, propietarioInput, telefonoInput, fechaInput, horaInput, sintomasInput, formulario } from '../selectores.js';
 
 class App {
     constructor() {
@@ -14,6 +14,7 @@ class App {
             mascotaInput.addEventListener('change', datosCita);
             propietarioInput.addEventListener('change', datosCita);
             telefonoInput.addEventListener('change', datosCita);
+            tipoInput.addEventListener('change', datosCita);
             fechaInput.addEventListener('change', datosCita);
             horaInput.addEventListener('change', datosCita);
             sintomasInput.addEventListener('change', datosCita);

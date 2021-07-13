@@ -1,5 +1,6 @@
 
 const mascotaInput = document.querySelector('#mascota');
+const tipoInput = document.querySelector('#tipo');
 const propietarioInput = document.querySelector('#propietario');
 const telefonoInput = document.querySelector('#telefono');
 const fechaInput = document.querySelector('#fecha');
@@ -22,6 +23,7 @@ function eventListeners() {
     mascotaInput.addEventListener('change', datosCita);
     propietarioInput.addEventListener('change', datosCita);
     telefonoInput.addEventListener('change', datosCita);
+    tipoInput.addEventListener('change', datosCita);
     fechaInput.addEventListener('change', datosCita);
     horaInput.addEventListener('change', datosCita);
     sintomasInput.addEventListener('change', datosCita);
@@ -29,6 +31,7 @@ function eventListeners() {
 
 const citaObj = {
     mascota: '',
+    tipo: '',
     propietario: '',
     telefono: '',
     fecha: '',
@@ -89,7 +92,7 @@ class UI {
         this.limpiarHTML();
 
         citas.forEach(cita => {
-            const {mascota, propietario, telefono, fecha, hora, sintomas, id } = cita;
+            const {mascota, propietario, telefono, fecha, hora,tipo, sintomas, id } = cita;
 
             const divCita = document.createElement('div');
             divCita.classList.add('cita', 'p-3');
@@ -99,6 +102,10 @@ class UI {
             const mascotaParrafo = document.createElement('h2');
             mascotaParrafo.classList.add('card-title', 'font-weight-bolder');
             mascotaParrafo.innerHTML = `${mascota}`;
+
+
+            const tipoParrafo = document.createElement('p');
+            tipoParrafo.innerHTML = `<span class="font-weight-bolder">Historial Médico: </span> ${tipo}`;
 
             const propietarioParrafo = document.createElement('p');
             propietarioParrafo.innerHTML = `<span class="font-weight-bolder">Propietario: </span> ${propietario}`;
@@ -132,6 +139,7 @@ class UI {
             divCita.appendChild(mascotaParrafo);
             divCita.appendChild(propietarioParrafo);
             divCita.appendChild(telefonoParrafo);
+            divCita.appendChild(tipoParrafo);
             divCita.appendChild(fechaParrafo);
             divCita.appendChild(horaParrafo);
             divCita.appendChild(sintomasParrafo);
@@ -155,10 +163,10 @@ const administrarCitas = new Citas();
 function nuevaCita(e) {
     e.preventDefault();
 
-    const {mascota, propietario, telefono, fecha, hora, sintomas } = citaObj;
+    const {mascota,tipo, edad, propietario, telefono, fecha, hora, sintomas } = citaObj;
 
     // Validar
-    if( mascota === '' || propietario === '' || telefono === '' || fecha === ''  || hora === '' || sintomas === '' ) {
+    if( mascota === '' ||tipo === ''||edad === ''|| propietario === '' || telefono === '' || fecha === ''  || hora === '' || sintomas === '' ) {
         ui.imprimirAlerta('Todos los mensajes son Obligatorios', 'error')
 
         return;
@@ -202,6 +210,8 @@ function nuevaCita(e) {
 function reiniciarObjeto() {
     // Reiniciar el objeto
     citaObj.mascota = '';
+    citaObj.tipo = '';
+    citaObj.edad = '';
     citaObj.propietario = '';
     citaObj.telefono = '';
     citaObj.fecha = '';
@@ -218,10 +228,12 @@ function eliminarCita(id) {
 
 function cargarEdicion(cita) {
 
-    const {mascota, propietario, telefono, fecha, hora, sintomas, id } = cita;
+    const {mascota,tipo,edad, propietario, telefono, fecha, hora, sintomas, id } = cita;
 
     // Reiniciar el objeto
     citaObj.mascota = mascota;
+    citaObj.tipo = tipo;
+    citaObj.edad = edad;
     citaObj.propietario = propietario;
     citaObj.telefono = telefono;
     citaObj.fecha = fecha
@@ -231,6 +243,8 @@ function cargarEdicion(cita) {
 
     // Llenar los Inputs
     mascotaInput.value = mascota;
+    tipoInput.value = tipo;
+    edadInput.value = edad;
     propietarioInput.value = propietario;
     telefonoInput.value = telefono;
     fechaInput.value = fecha;

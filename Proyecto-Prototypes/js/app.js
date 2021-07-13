@@ -1,8 +1,10 @@
 // Constructor para Seguro
-function Seguro(marca, anio, tipo) {
+function Seguro(marca, anio,tiempo, tipo ) {
      this.marca = marca;
      this.anio = anio;
+     this.tiempo = tiempo;
      this.tipo = tipo;
+     
 }
 Seguro.prototype.cotizarSeguro = function() {
      /*
@@ -29,15 +31,18 @@ Seguro.prototype.cotizarSeguro = function() {
      const diferencia = new Date().getFullYear() - this.anio;
      // Cada año de diferencia hay que reducir 3% el valor del seguro
      cantidad -= ((diferencia * 3) * cantidad) / 100;
+
+
+     cantidad = cantidad * this.tiempo;
      /*
           Si el seguro es básico se múltiplica por 30% mas
           Si el seguro es completo 50% mas
      */
     if(this.tipo === 'basico') {
          cantidad *= 1.30;
-    } else {
-         cantidad *= 1.50;
-    }
+    } else if(this.tipo === 'completo'){
+     cantidad *= 2.00;
+}
 
      return cantidad;
 
@@ -78,6 +83,7 @@ Interfaz.prototype.mostrarResultado = function(seguro, total) {
           case '3':
                marca = 'Europeo';
                break;
+          
      }
      // Crear un div
      const div = document.createElement('div');
@@ -87,6 +93,7 @@ Interfaz.prototype.mostrarResultado = function(seguro, total) {
           <p class='header'>Tu Resumen: </p>
           <p class="font-bold">Marca: <span class="font-normal"> ${marca} </span> </p>
           <p class="font-bold">Año: <span class="font-normal"> ${seguro.anio} </span> </p>
+          <p class="font-bold">Años: <span class="font-normal"> ${seguro.tiempo} </span> </p>
           <p class="font-bold">Tipo: <span class="font-normal"> ${seguro.tipo} </span> </p>
           <p class="font-bold"> Total: <span class="font-normal"> $ ${total} </span> </p>
      `;
@@ -113,12 +120,29 @@ Interfaz.prototype.llenarOpciones = function () {
      }   
 }
 
+Interfaz.prototype.llenarOpcione = function(){
+     const max = 5,
+          min = 1;
+
+     const seleccionar = document.querySelector('#tiempo');
+     for(let i = min; i <= max; i++){
+          let optiona = document.createElement('option')
+          optiona.value = i ;
+          optiona.innerHTML = i;
+          console.log(optiona);
+          seleccionar.appendChild(optiona);
+     }
+}
+
 // Crear instancia de Interfaz
 const interfaz = new Interfaz();
 
 document.addEventListener('DOMContentLoaded', () => {
-     interfaz.llenarOpciones()
+     interfaz.llenarOpciones(); 
+     interfaz.llenarOpcione()
 });
+
+
 
 // DOM Operaciones
 const formulario = document.querySelector('#cotizar-seguro');
@@ -132,13 +156,15 @@ formulario.addEventListener('submit', e =>  {
      // leer el año seleccionado del <select>
      const year = document.querySelector('#year').value
 
+     const tiempo = document.querySelector('#tiempo').value;
+
      // lee el valor del radio button
      const tipo = document.querySelector('input[name="tipo"]:checked').value;
 
- 
+    
 
      // Revisamos que los campos no esten vacios
-     if(marca === '' || year === '' || tipo === '') {
+     if(marca === '' || year === '' || tipo === '' || tiempo === '') {
           // Interfaz imprimiendo un error
           interfaz.mostrarMensaje('Faltan datos, revisar el formulario y prueba de nuevo', 'error');
      } else {
@@ -149,7 +175,7 @@ formulario.addEventListener('submit', e =>  {
           }
 
           // Instanciar seguro y mostrar interfaz
-          const seguro = new Seguro(marca, year, tipo);
+          const seguro = new Seguro(marca, year,tiempo, tipo);
           // Cotizar el seguro
           const cantidad = seguro.cotizarSeguro();
           // Mostrar el resultado

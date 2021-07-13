@@ -73,8 +73,8 @@ class UI {
 
         // Iterar sobre los gastos 
         gastos.forEach(gasto => {
-            const {nombre, cantidad, id } = gasto;
-
+            const {nombre, cantidad,date, id } = gasto;
+            
             // Crear un LI
             const nuevoGasto = document.createElement('li');
             nuevoGasto.className = 'list-group-item d-flex justify-content-between align-items-center';
@@ -84,13 +84,11 @@ class UI {
             nuevoGasto.innerHTML = `
                 ${nombre}
                 <span class="badge badge-primary badge-pill">$ ${cantidad}</span>
+                ${date}
             `;
 
             // boton borrar gasto.
-            const btnBorrar = document.createElement('button');
-            btnBorrar.classList.add('btn', 'btn-danger', 'borrar-gasto');
-            btnBorrar.textContent = 'Borrar';
-            nuevoGasto.appendChild(btnBorrar);
+           
 
             // Insertar al HTML
             gastosListado.appendChild(nuevoGasto);
@@ -164,17 +162,18 @@ function agregarGasto(e) {
      // Leer del formulario de Gastos
      const nombre = document.querySelector('#gasto').value;
      const cantidad = Number( document.querySelector('#cantidad').value);
+     const date = document.querySelector('#date').value;
 
      // Comprobar que los campos no esten vacios
-     if(nombre === '' || cantidad === '') {
+     if(nombre === '' || cantidad === '' || date === '') {
           // 2 parametros: mensaje y tipo
-          ui.imprimirAlerta('Ambos campos son obligatorios', 'error');
+          ui.imprimirAlerta('Todos los campos son obligatorios', 'error');
      } else if(cantidad <= 0 || isNaN(cantidad )) {
 
           // si hay una cantidad negativa o letras...
           ui.imprimirAlerta('Cantidad no válida', 'error')
      } else {
-            const gasto = { nombre, cantidad, id: Date.now() };
+            const gasto = { nombre, cantidad,date};
 
             // Añadir nuevo gasto 
             presupuesto.nuevoGasto(gasto)
@@ -200,6 +199,9 @@ function agregarGasto(e) {
      }
 }
 
+
+
+
 function eliminarGasto(e) {
     if(e.target.classList.contains('borrar-gasto')){
         const { id } = e.target.parentElement.dataset;
@@ -215,3 +217,5 @@ function eliminarGasto(e) {
         e.target.parentElement.remove();
     } 
 }
+
+

@@ -33,7 +33,7 @@ class UI {
         this.limpiarHTML();
 
         citas.forEach(cita => {
-            const {mascota, propietario, telefono, fecha, hora, sintomas, id } = cita;
+            const {mascota,tipo, propietario, telefono, fecha, hora, sintomas, id } = cita;
 
             const divCita = document.createElement('div');
             divCita.classList.add('cita', 'p-3');
@@ -49,6 +49,9 @@ class UI {
 
             const telefonoParrafo = document.createElement('p');
             telefonoParrafo.innerHTML = `<span class="font-weight-bolder">Teléfono: </span> ${telefono}`;
+
+            const tipoParrafo = document.createElement('p');
+            tipoParrafo.innerHTML = `<span class="font-weight-bolder">Historial Médico: </span> ${tipo}`;
 
             const fechaParrafo = document.createElement('p');
             fechaParrafo.innerHTML = `<span class="font-weight-bolder">Fecha: </span> ${fecha}`;
@@ -76,6 +79,7 @@ class UI {
             divCita.appendChild(mascotaParrafo);
             divCita.appendChild(propietarioParrafo);
             divCita.appendChild(telefonoParrafo);
+            divCita.appendChild(tipoParrafo);
             divCita.appendChild(fechaParrafo);
             divCita.appendChild(horaParrafo);
             divCita.appendChild(sintomasParrafo);

@@ -1,7 +1,7 @@
 body {
-    background: #43e9a4;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #4f4e95, #43e9a4);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #4f4e95, #43e9a4); 
+    background: #43c8e9;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #594e95, #43c8e9);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #594e95, #43c8e9); 
 }
 .btn.btn-raised.btn-primary {
     background-color: #00838F!important;
