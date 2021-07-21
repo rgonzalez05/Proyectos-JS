@@ -71,7 +71,7 @@
     }
 
     function llenarFormulario(datosCliente) {
-        const { nombre, email, empresa, telefono } = datosCliente;
+        const { nombre,apellido, email, empresa, telefono } = datosCliente;
          nombreInput.value = nombre;
          emailInput.value = email;
          empresaInput.value = empresa;
